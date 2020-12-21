@@ -1,0 +1,125 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  id: ID!
+  title: String!
+  content: String
+  published: Boolean
+  author: User
+  authorId: Int
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String
+  posts: [Post!]
+}
+
+type Query {
+  getMultipleUsers(data: UserWhereInput!): [User!]!
+  getSingleUser(data: UserWhereUniqueInput!): User!
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: IntFilter
+  email: StringFilter
+  name: StringFilter
+  posts: PostListRelationFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: StringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input PostListRelationFilter {
+  every: PostWhereInput
+  some: PostWhereInput
+  none: PostWhereInput
+}
+
+input PostWhereInput {
+  AND: [PostWhereInput!]
+  OR: [PostWhereInput!]
+  NOT: [PostWhereInput!]
+  id: IntFilter
+  title: StringFilter
+  content: StringFilter
+  published: BooleanFilter
+  author: UserWhereInput
+  authorId: IntFilter
+}
+
+input BooleanFilter {
+  equals: Boolean
+  not: BooleanFilter
+}
+
+input UserWhereUniqueInput {
+  id: Int
+  email: String
+}
+
+type Mutation {
+  """Create Author Field"""
+  CreateUser(data: UserCreateInput!): User!
+}
+
+input UserCreateInput {
+  email: String
+  name: String
+  posts: PostCreateManyWithoutAuthorInput
+}
+
+input PostCreateManyWithoutAuthorInput {
+  create: [PostCreateWithoutAuthorInput!]
+  connect: [PostWhereUniqueInput!]
+  connectOrCreate: [PostCreateOrConnectWithoutauthorInput!]
+}
+
+input PostCreateWithoutAuthorInput {
+  title: String
+  content: String
+  published: Boolean
+}
+
+input PostWhereUniqueInput {
+  id: Int
+}
+
+input PostCreateOrConnectWithoutauthorInput {
+  where: PostWhereUniqueInput
+  create: PostCreateWithoutAuthorInput
+}
